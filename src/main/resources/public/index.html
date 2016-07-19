@@ -13,13 +13,9 @@
     <div id="chat">    <!-- Built by JS --> </div>
     <script>
   //Establish the WebSocket connection and set up event handlers
-  console.log("ws://" + location.hostname + "/chat/");
     var webSocket = new WebSocket("wss://" + location.hostname + "/chat/");
-    console.log("point2");
     webSocket.onmessage = function (msg) { updateChat(msg); };
-    console.log("point3");
     webSocket.onclose = function () { alert("WebSocket connection closed") };
-    console.log("point4");
     //Send message if "Send" is clicked
     id("send").addEventListener("click", function () {
         sendMessage(id("message").value);

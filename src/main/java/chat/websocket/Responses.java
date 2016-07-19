@@ -2,7 +2,6 @@ package chat.websocket;
 
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,15 +20,15 @@ public class Responses
     {
         welcomeMessages = new ArrayList<String>();
         genericResponses = new ArrayList<String>();
-//        try
-//        {
-//            readFileIntoList(welcomeMessages, "private/welcomeMessages.txt");
-//            readFileIntoList(genericResponses, "private/genericResponses.txt");
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
+        try
+        {
+            readFileIntoList(welcomeMessages, "private/welcomeMessages.txt");
+            readFileIntoList(genericResponses, "private/genericResponses.txt");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
@@ -58,11 +57,5 @@ public class Responses
                 list.add(line);
             }
         }
-    }
-    
-    public static void main(String[] args) throws IOException
-    {
-        readFileIntoList(genericResponses, "src/main/resources/private/genericResponses.txt");
-        System.out.println(genericResponses.size());
     }
 }

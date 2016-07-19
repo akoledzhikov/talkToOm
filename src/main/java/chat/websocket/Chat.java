@@ -16,6 +16,7 @@ public class Chat
 {
     public static void main(String[] args)
     {
+        System.out.println("Starting up!");
         String portEnv = System.getenv("PORT");
         if (portEnv == null || portEnv.isEmpty())
         {
