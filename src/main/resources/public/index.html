@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>God, talk to me!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="chatControls">
+        <input id="message" placeholder="Type your message">
+        <button id="send">Send</button>
+    </div>
+    <div id="chat">    <!-- Built by JS --> </div>
+    <script>
+  //Establish the WebSocket connection and set up event handlers
+  console.log("ws://" + location.hostname + "/chat/");
+    var webSocket = new WebSocket("wss://" + location.hostname + "/chat/");
+    console.log("point2");
+    webSocket.onmessage = function (msg) { updateChat(msg); };
+    console.log("point3");
+    webSocket.onclose = function () { alert("WebSocket connection closed") };
+    console.log("point4");
+    //Send message if "Send" is clicked
+    id("send").addEventListener("click", function () {
+        sendMessage(id("message").value);
+    });
+
+    //Send message if enter is pressed in the input field
+    id("message").addEventListener("keypress", function (e) {
+        if (e.keyCode === 13) { sendMessage(e.target.value); }
+    });
+
+    console.log("point3");
+    //Send a message if it's not empty, then clear the input field
+    function sendMessage(message) {
+        if (message !== "") {
+            webSocket.send(message);
+            id("message").value = "";
+        }
+    }
+
+    //Update the chat-panel, and the list of connected users
+    function updateChat(msg) {
+        var data = JSON.parse(msg.data);
+        insert("chat", data.userMessage);
+    }
+
+    //Helper function for inserting HTML as the first child of an element
+    function insert(targetId, message) {
+        id(targetId).insertAdjacentHTML("afterbegin", message);
+    }
+
+    //Helper function for selecting element by id
+    function id(id) {
+        return document.getElementById(id);
+    }
+    </script>
+</body>
+</html>
